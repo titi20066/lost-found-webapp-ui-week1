@@ -1,0 +1,255 @@
+.form-container {
+    max-width: 600px;                   /* Limit form width for readability */
+    margin: 0 auto;                     /* Center the form */
+    background: white;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+}
+
+.login-container {
+    max-width: 400px;                   /* Smaller width for login form */
+}
+
+.form-container h2 {
+    text-align: center;
+    margin-bottom: 0.5rem;
+    color: #2c3e50;
+}
+
+.form-container p {
+    text-align: center;
+    color: #7f8c8d;
+    margin-bottom: 2rem;
+}
+
+/* ===== FIELDSETS ===== */
+fieldset {
+    border: 2px solid #e9ecef;
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+legend {
+    font-weight: 600;
+    color: #2c3e50;
+    padding: 0 1rem;
+    font-size: 1.1rem;
+}
+
+/* ===== FORM GROUPS ===== */
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-row {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.form-row .form-group {
+    flex: 1;                            /* Equal width columns */
+    margin-bottom: 0;
+}
+
+/* ===== LABELS ===== */
+label {
+    display: block;
+    font-weight: 500;
+    color: #2c3e50;
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+}
+
+/* Required field indicator */
+label::after {
+    content: "";
+}
+
+/* Add red asterisk for required fields */
+.form-group:has(input[required]) label::after,
+.form-group:has(select[required]) label::after {
+    content: " *";
+    color: #e74c3c;
+}
+
+/* ===== INPUT FIELDS ===== */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="tel"],
+input[type="url"],
+input[type="number"],
+input[type="date"],
+select,
+textarea {
+    width: 100%;
+    padding: 0.75rem;
+    border: 2px solid #e9ecef;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-family: inherit;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    background-color: white;
+}
+
+/* Focus styles */
+input:focus,
+select:focus,
+textarea:focus {
+    outline: none;
+    border-color: #3498db;
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+}
+
+/* Error styles */
+input:invalid:not(:focus):not(:placeholder-shown) {
+    border-color: #e74c3c;
+    box-shadow: 0 0 0 3px rgba(231, 76, 60, 0.1);
+}
+
+/* Success styles */
+input:valid:not(:focus):not(:placeholder-shown) {
+    border-color: #27ae60;
+}
+
+/* Placeholder styles */
+input::placeholder,
+textarea::placeholder {
+    color: #95a5a6;
+    font-style: italic;
+}
+
+/* ===== SELECT DROPDOWNS ===== */
+select {
+    cursor: pointer;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+    background-position: right 0.5rem center;
+    background-repeat: no-repeat;
+    background-size: 1.5em 1.5em;
+    padding-right: 2.5rem;
+}
+
+/* ===== RADIO BUTTONS & CHECKBOXES ===== */
+.radio-group {
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.checkbox-group {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+}
+
+.checkbox-group input[type="checkbox"],
+.radio-group input[type="radio"] {
+    width: auto;
+    margin: 0;
+    transform: scale(1.2);              /* Make checkboxes/radios slightly larger */
+}
+
+.checkbox-group label,
+.radio-group label {
+    margin-bottom: 0;
+    font-weight: normal;
+    cursor: pointer;
+    line-height: 1.4;
+}
+
+/* ===== FORM ACTIONS ===== */
+.form-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid #e9ecef;
+}
+
+/* ===== FORM FOOTER ===== */
+.form-footer {
+    text-align: center;
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid #e9ecef;
+}
+
+.form-footer p {
+    margin: 0.5rem 0;
+    color: #7f8c8d;
+}
+
+/* ===== FORM VALIDATION MESSAGES ===== */
+.error-message {
+    color: #e74c3c;
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+    display: block;
+}
+
+.success-message {
+    color: #27ae60;
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+    display: block;
+}
+
+/* ===== RESPONSIVE FORM STYLES ===== */
+
+/* Tablet styles */
+@media (min-width: 768px) {
+    .form-container {
+        padding: 3rem;
+    }
+    
+    .form-actions {
+        justify-content: flex-end;      /* Right-align buttons on larger screens */
+    }
+}
+
+/* Mobile styles */
+@media (max-width: 767px) {
+    .form-container {
+        margin: 1rem;
+        padding: 1.5rem;
+    }
+    
+    .form-row {
+        flex-direction: column;         /* Stack form fields vertically */
+        gap: 0;
+    }
+    
+    .form-row .form-group {
+        margin-bottom: 1.5rem;
+    }
+    
+    .form-actions {
+        flex-direction: column;         /* Stack buttons vertically */
+    }
+    
+    .radio-group {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    fieldset {
+        padding: 1rem;
+    }
+}
+
+/* Small mobile styles */
+@media (max-width: 480px) {
+    .form-container {
+        margin: 0.5rem;
+        padding: 1rem;
+    }
+    
+    .btn {
+        padding: 1rem;                  /* Larger touch targets */
+        font-size: 1.1rem;
+    }
+}
