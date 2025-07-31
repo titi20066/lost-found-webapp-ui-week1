@@ -3,12 +3,66 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login to Your Account</title>
+    <title>Login - Lost & Found Portal</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/forms.css">
 </head>
-<body background="black">
-<h1>Login to Your Account</h1>
-<br><input type="text" placeholder="Email" required /></br>
- <br><input type="password" placeholder="Password" required /></br>
-  <br><button><a href="register.html">Submit</a></button></br>
+<body>
+    <header class="header">
+        <nav class="navbar">
+            <div class="nav-brand">
+                <h1><a href="index.html">🔍 Lost & Found</a></h1>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="login.html" class="active">Login</a></li>
+                <li><a href="register.html">Register</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="main-content">
+        <div class="container">
+            <div class="form-container login-container">
+                <h2>Welcome Back</h2>
+                <p>Login to access your Lost & Found account</p>
+                
+                <!-- Login Form -->
+                <form class="login-form" action="/login" method="POST">
+                    <div class="form-group">
+                        <label for="loginEmail">Email Address</label>
+                        <input type="email" id="loginEmail" name="email" required 
+                               placeholder="Enter your email">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="loginPassword">Password</label>
+                        <input type="password" id="loginPassword" name="password" required 
+                               placeholder="Enter your password">
+                    </div>
+                    
+                    <div class="form-group checkbox-group">
+                        <input type="checkbox" id="remember" name="remember">
+                        <label for="remember">Remember me</label>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary btn-full">Login</button>
+                    </div>
+                </form>
+                
+                <div class="form-footer">
+                    <p><a href="#">Forgot your password?</a></p>
+                    <p>Don't have an account? <a href="register.html">Register here</a></p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 School Lost & Found Portal</p>
+        </div>
+    </footer>
 </body>
 </html>
