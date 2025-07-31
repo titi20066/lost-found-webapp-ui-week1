@@ -3,15 +3,139 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register New Account</title>
+    <title>Register - Lost & Found Portal</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/forms.css">
 </head>
 <body>
-    <h1>Register New Account</h1>
-     <br><input type="text" placeholder="Full Name" required /></br>
-     <br><input type="Email" placeholder="Email" required /></br>
-     <br><input type="password" placeholder="Password" required /></br>
-     <br><input type="password" placeholder="Confirm Password" required /></br>
-    <br><button><a href="login.html">Submit</a></button></br>
-    
+    <!-- Navigation (same as index.html) -->
+    <header class="header">
+        <nav class="navbar">
+            <div class="nav-brand">
+                <h1><a href="index.html">🔍 Lost & Found</a></h1>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="login.html">Login</a></li>
+                <li><a href="register.html" class="active">Register</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="main-content">
+        <div class="container">
+            <div class="form-container">
+                <h2>Create Your Account</h2>
+                <p>Join our Lost & Found community to report and find items.</p>
+                
+                <!-- Registration Form -->
+                <form class="registration-form" action="/register" method="POST">
+                    <!-- Personal Information -->
+                    <fieldset>
+                        <legend>Personal Information</legend>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="firstName">First Name *</label>
+                                <input type="text" id="firstName" name="firstName" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="lastName">Last Name *</label>
+                                <input type="text" id="lastName" name="lastName" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email">Email Address *</label>
+                            <input type="email" id="email" name="email" required 
+                                   placeholder="student@school.edu">
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="studentId">Student ID *</label>
+                                <input type="text" id="studentId" name="studentId" required 
+                                       placeholder="STU123456" pattern="STU[0-9]{6}">
+                            </div>
+                            <div class="form-group">
+                                <label for="phone">Phone Number</label>
+                                <input type="tel" id="phone" name="phone" 
+                                       placeholder="(555) 123-4567">
+                            </div>
+                        </div>
+                    </fieldset>
+                    
+                    <!-- Academic Information -->
+                    <fieldset>
+                        <legend>Academic Information</legend>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="department">Department *</label>
+                                <select id="department" name="department" required>
+                                    <option value="">Select Department</option>
+                                    <option value="computer-science">Computer Science</option>
+                                    <option value="engineering">Engineering</option>
+                                    <option value="business">Business</option>
+                                    <option value="arts">Arts & Humanities</option>
+                                    <option value="sciences">Natural Sciences</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="yearLevel">Year Level *</label>
+                                <select id="yearLevel" name="yearLevel" required>
+                                    <option value="">Select Year</option>
+                                    <option value="freshman">Freshman</option>
+                                    <option value="sophomore">Sophomore</option>
+                                    <option value="junior">Junior</option>
+                                    <option value="senior">Senior</option>
+                                </select>
+                            </div>
+                        </div>
+                    </fieldset>
+                    
+                    <!-- Account Setup -->
+                    <fieldset>
+                        <legend>Account Setup</legend>
+                        
+                        <div class="form-group">
+                            <label for="password">Password *</label>
+                            <input type="password" id="password" name="password" required 
+                                   minlength="8" placeholder="Minimum 8 characters">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="confirmPassword">Confirm Password *</label>
+                            <input type="password" id="confirmPassword" name="confirmPassword" required>
+                        </div>
+                        
+                        <div class="form-group checkbox-group">
+                            <input type="checkbox" id="terms" name="terms" required>
+                            <label for="terms">
+                                I agree to the <a href="#" target="_blank">Terms of Service</a> 
+                                and <a href="#" target="_blank">Privacy Policy</a> *
+                            </label>
+                        </div>
+                    </fieldset>
+                    
+                    <!-- Form Actions -->
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">Create Account</button>
+                        <button type="reset" class="btn btn-secondary">Clear Form</button>
+                    </div>
+                </form>
+                
+                <div class="form-footer">
+                    <p>Already have an account? <a href="login.html">Login here</a></p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 School Lost & Found Portal</p>
+        </div>
+    </footer>
 </body>
 </html>
