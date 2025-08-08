@@ -1,130 +1,424 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard - Lost & Found Portal</title>
-    <link rel="stylesheet" href="css/style.css">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Dashboard - Lost & Found Portal</title>
+<style>
+  /* Reset & Base */
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
+  body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #f4f7fc;
+    color: #2c3e50;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+  a {
+    color: #2980b9;
+    text-decoration: none;
+    transition: color 0.25s ease;
+  }
+  a:hover, a:focus {
+    color: #1c5980;
+    outline: none;
+    text-decoration: underline;
+  }
+
+  /* Header */
+  header {
+    background-color: #34495e;
+    padding: 1rem 2rem;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+    color: #ecf0f1;
+  }
+  .navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .nav-brand a {
+    font-weight: 700;
+    font-size: 1.8rem;
+    color: #f39c12;
+  }
+  .nav-user {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-weight: 600;
+  }
+  .btn-small {
+    padding: 0.4rem 1rem;
+    background: #f39c12;
+    border: none;
+    border-radius: 5px;
+    color: #2c3e50;
+    cursor: pointer;
+    font-weight: 700;
+    transition: background-color 0.3s ease;
+    text-decoration: none;
+  }
+  .btn-small:hover, .btn-small:focus {
+    background: #d18e00;
+    outline: none;
+  }
+
+  /* Layout */
+  main.dashboard-layout {
+    flex-grow: 1;
+    display: flex;
+    min-height: calc(100vh - 70px);
+  }
+
+  /* Sidebar */
+  aside.sidebar {
+    background: #2c3e50;
+    width: 240px;
+    padding: 2rem 1.5rem;
+    color: #ecf0f1;
+    box-shadow: inset -3px 0 8px rgba(0,0,0,0.15);
+  }
+  .sidebar-nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .sidebar-nav li {
+    margin-bottom: 1.3rem;
+  }
+  .sidebar-nav a {
+    display: flex;
+    align-items: center;
+    font-weight: 600;
+    font-size: 1.1rem;
+    color: #bdc3c7;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  .sidebar-nav a:hover,
+  .sidebar-nav a:focus {
+    background: #f39c12;
+    color: #2c3e50;
+    outline: none;
+  }
+  .sidebar-nav a.active {
+    background: #f39c12;
+    color: #2c3e50;
+    cursor: default;
+  }
+
+  /* Main Content */
+  .main-content {
+    flex-grow: 1;
+    padding: 2.5rem 3rem;
+    overflow-y: auto;
+  }
+  .dashboard-header h2 {
+    margin: 0 0 0.2rem;
+    color: #34495e;
+    font-weight: 700;
+    font-size: 2rem;
+  }
+  .dashboard-header p {
+    margin: 0 0 2rem;
+    color: #7f8c8d;
+    font-size: 1rem;
+  }
+
+  /* Stats Cards Grid */
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 1.8rem;
+    margin-bottom: 3rem;
+  }
+  .stat-card {
+    background: white;
+    border-radius: 12px;
+    padding: 1.8rem 1.5rem;
+    box-shadow:
+      0 6px 15px rgba(0,0,0,0.07);
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+    transition: box-shadow 0.3s ease;
+  }
+  .stat-card:hover {
+    box-shadow:
+      0 10px 25px rgba(0,0,0,0.12);
+  }
+  .stat-icon {
+    font-size: 2.6rem;
+  }
+  .stat-info h3 {
+    margin: 0;
+    font-size: 1.9rem;
+    color: #2980b9;
+  }
+  .stat-info p {
+    margin: 0;
+    color: #7f8c8d;
+    font-weight: 600;
+  }
+
+  /* Dashboard Sections */
+  .dashboard-section {
+    margin-bottom: 3rem;
+  }
+  .dashboard-section h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #34495e;
+    margin-bottom: 1.2rem;
+    border-bottom: 2px solid #f39c12;
+    padding-bottom: 0.3rem;
+  }
+
+  /* Activity List */
+  .activity-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.1rem;
+  }
+  .activity-item {
+    display: flex;
+    gap: 1rem;
+    background: white;
+    padding: 1.2rem 1.5rem;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.06);
+    align-items: center;
+    transition: box-shadow 0.3s ease;
+  }
+  .activity-item:hover {
+    box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+  }
+  .activity-icon {
+    font-size: 2.8rem;
+    flex-shrink: 0;
+    width: 50px;
+    text-align: center;
+  }
+  .activity-content h4 {
+    margin: 0 0 0.2rem;
+    font-weight: 700;
+    color: #2980b9;
+  }
+  .activity-content p {
+    margin: 0 0 0.4rem;
+    color: #7f8c8d;
+    font-size: 0.95rem;
+  }
+  .status {
+    font-weight: 600;
+    font-size: 0.9rem;
+    padding: 0.2rem 0.6rem;
+    border-radius: 12px;
+    user-select: none;
+    display: inline-block;
+  }
+  .status-pending {
+    background-color: #f1c40f33;
+    color: #d4ac0d;
+  }
+  .status-found {
+    background-color: #2ecc7133;
+    color: #27ae601a;
+    background-color: #27ae60;
+    color: #fff;
+  }
+
+  /* Quick Actions Grid */
+  .action-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(180px,1fr));
+    gap: 1.8rem;
+  }
+  .action-card {
+    background: white;
+    border-radius: 12px;
+    padding: 1.8rem 1.5rem;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.06);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    color: #34495e;
+    transition: box-shadow 0.3s ease, transform 0.25s ease;
+    cursor: pointer;
+    text-decoration: none;
+  }
+  .action-card:hover,
+  .action-card:focus {
+    box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+    transform: translateY(-4px);
+    outline: none;
+  }
+  .action-icon {
+    font-size: 3rem;
+    margin-bottom: 0.7rem;
+  }
+  .action-card h4 {
+    margin: 0 0 0.4rem;
+    font-weight: 700;
+  }
+  .action-card p {
+    font-size: 0.9rem;
+    color: #7f8c8d;
+    margin: 0;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    main.dashboard-layout {
+      flex-direction: column;
+    }
+    aside.sidebar {
+      width: 100%;
+      padding: 1rem 2rem;
+      box-shadow: none;
+      display: flex;
+      overflow-x: auto;
+    }
+    .sidebar-nav ul {
+      display: flex;
+      gap: 1rem;
+    }
+    .sidebar-nav li {
+      margin-bottom: 0;
+    }
+    .main-content {
+      padding: 2rem 1.5rem 3rem;
+    }
+    .stats-grid {
+      grid-template-columns: repeat(auto-fit,minmax(140px,1fr));
+      gap: 1rem;
+    }
+  }
+</style>
 </head>
 <body>
-    <header class="header">
-        <nav class="navbar">
-            <div class="nav-brand">
-                <h1><a href="index.html">🔍 Lost & Found</a></h1>
-            </div>
-            <div class="nav-user">
-                <span>Welcome, John Doe</span>
-                <a href="index.html" class="btn btn-small">Logout</a>
-            </div>
-        </nav>
-    </header>
 
-    <main class="dashboard-layout">
-        <!-- Sidebar Navigation -->
-        <aside class="sidebar">
-            <nav class="sidebar-nav">
-                <ul>
-                    <li><a href="#" class="active">📊 Dashboard</a></li>
-                    <li><a href="#">📝 Report Lost Item</a></li>
-                    <li><a href="#">🔍 Search Found Items</a></li>
-                    <li><a href="#">📋 My Reports</a></li>
-                    <li><a href="#">⚙️ Settings</a></li>
-                </ul>
-            </nav>
-        </aside>
+<header>
+  <nav class="navbar">
+    <div class="nav-brand">
+      <h1><a href="index.html" aria-label="Lost and Found Portal Home">🔍 Lost & Found</a></h1>
+    </div>
+    <div class="nav-user" aria-label="User menu">
+      <span>Welcome, John Doe</span>
+      <a href="index.html" class="btn btn-small">Logout</a>
+    </div>
+  </nav>
+</header>
 
-        <!-- Main Content Area -->
-        <div class="main-content">
-            <div class="dashboard-header">
-                <h2>Dashboard</h2>
-                <p>Welcome to your Lost & Found portal</p>
-            </div>
+<main class="dashboard-layout">
+  <aside class="sidebar" role="navigation" aria-label="Sidebar Navigation">
+    <nav class="sidebar-nav">
+      <ul>
+        <li><a href="#" class="active" aria-current="page">📊 Dashboard</a></li>
+        <li><a href="#">📝 Report Lost Item</a></li>
+        <li><a href="#">🔍 Search Found Items</a></li>
+        <li><a href="#">📋 My Reports</a></li>
+        <li><a href="#">⚙️ Settings</a></li>
+      </ul>
+    </nav>
+  </aside>
 
-            <!-- Stats Cards -->
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <div class="stat-icon">📝</div>
-                    <div class="stat-info">
-                        <h3>3</h3>
-                        <p>Items Reported</p>
-                    </div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-icon">✅</div>
-                    <div class="stat-info">
-                        <h3>1</h3>
-                        <p>Items Found</p>
-                    </div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-icon">⏳</div>
-                    <div class="stat-info">
-                        <h3>2</h3>
-                        <p>Still Missing</p>
-                    </div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-icon">🏆</div>
-                    <div class="stat-info">
-                        <h3>5</h3>
-                        <p>Items Helped Find</p>
-                    </div>
-                </div>
-            </div>
+  <section class="main-content" role="main" aria-label="Dashboard Content">
+    <div class="dashboard-header">
+      <h2>Dashboard</h2>
+      <p>Welcome to your Lost & Found portal</p>
+    </div>
 
-            <!-- Recent Activity -->
-            <section class="dashboard-section">
-                <h3>Recent Activity</h3>
-                <div class="activity-list">
-                    <div class="activity-item">
-                        <div class="activity-icon">📱</div>
-                        <div class="activity-content">
-                            <h4>iPhone 12 Pro</h4>
-                            <p>Reported lost in Library - 2 days ago</p>
-                            <span class="status status-pending">Searching</span>
-                        </div>
-                    </div>
-                    <div class="activity-item">
-                        <div class="activity-icon">🎒</div>
-                        <div class="activity-content">
-                            <h4>Blue Backpack</h4>
-                            <p>Found and returned - 1 week ago</p>
-                            <span class="status status-found">Found</span>
-                        </div>
-                    </div>
-                    <div class="activity-item">
-                        <div class="activity-icon">🔑</div>
-                        <div class="activity-content">
-                            <h4>Car Keys</h4>
-                            <p>Reported lost in Parking Lot B - 3 days ago</p>
-                            <span class="status status-pending">Searching</span>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Quick Actions -->
-            <section class="dashboard-section">
-                <h3>Quick Actions</h3>
-                <div class="action-grid">
-                    <a href="#" class="action-card">
-                        <div class="action-icon">📝</div>
-                        <h4>Report Lost Item</h4>
-                        <p>Lost something? Report it here</p>
-                    </a>
-                    <a href="#" class="action-card">
-                        <div class="action-icon">🔍</div>
-                        <h4>Browse Found Items</h4>
-                        <p>See what's been turned in</p>
-                    </a>
-                    <a href="#" class="action-card">
-                        <div class="action-icon">📞</div>
-                        <h4>Contact Office</h4>
-                        <p>Get help from staff</p>
-                    </a>
-                </div>
-            </section>
+    <div class="stats-grid" aria-label="User statistics">
+      <article class="stat-card" tabindex="0">
+        <div class="stat-icon" aria-hidden="true">📝</div>
+        <div class="stat-info">
+          <h3>3</h3>
+          <p>Items Reported</p>
         </div>
-    </main>
+      </article>
+      <article class="stat-card" tabindex="0">
+        <div class="stat-icon" aria-hidden="true">✅</div>
+        <div class="stat-info">
+          <h3>1</h3>
+          <p>Items Found</p>
+        </div>
+      </article>
+      <article class="stat-card" tabindex="0">
+        <div class="stat-icon" aria-hidden="true">⏳</div>
+        <div class="stat-info">
+          <h3>2</h3>
+          <p>Still Missing</p>
+        </div>
+      </article>
+      <article class="stat-card" tabindex="0">
+        <div class="stat-icon" aria-hidden="true">🏆</div>
+        <div class="stat-info">
+          <h3>5</h3>
+          <p>Items Helped Find</p>
+        </div>
+      </article>
+    </div>
+
+    <section class="dashboard-section" aria-labelledby="recentActivityTitle">
+      <h3 id="recentActivityTitle">Recent Activity</h3>
+      <div class="activity-list">
+        <article class="activity-item" tabindex="0">
+          <div class="activity-icon" aria-hidden="true">📱</div>
+          <div class="activity-content">
+            <h4>iPhone 12 Pro</h4>
+            <p>Reported lost in Library - 2 days ago</p>
+            <span class="status status-pending" aria-label="Status: Searching">Searching</span>
+          </div>
+        </article>
+        <article class="activity-item" tabindex="0">
+          <div class="activity-icon" aria-hidden="true">🎒</div>
+          <div class="activity-content">
+            <h4>Blue Backpack</h4>
+            <p>Found and returned - 1 week ago</p>
+            <span class="status status-found" aria-label="Status: Found">Found</span>
+          </div>
+        </article>
+        <article class="activity-item" tabindex="0">
+          <div class="activity-icon" aria-hidden="true">🔑</div>
+          <div class="activity-content">
+            <h4>Car Keys</h4>
+            <p>Reported lost in Parking Lot B - 3 days ago</p>
+            <span class="status status-pending" aria-label="Status: Searching">Searching</span>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="dashboard-section" aria-labelledby="quickActionsTitle">
+      <h3 id="quickActionsTitle">Quick Actions</h3>
+      <div class="action-grid">
+        <a href="#" class="action-card" role="button" tabindex="0">
+          <div class="action-icon" aria-hidden="true">📝</div>
+          <h4>Report Lost Item</h4>
+          <p>Lost something? Report it here</p>
+        </a>
+        <a href="#" class="action-card" role="button" tabindex="0">
+          <div class="action-icon" aria-hidden="true">🔍</div>
+          <h4>Browse Found Items</h4>
+          <p>See what's been turned in</p>
+        </a>
+        <a href="#" class="action-card" role="button" tabindex="0">
+          <div class="action-icon" aria-hidden="true">📞</div>
+          <h4>Contact Office</h4>
+          <p>Get help from staff</p>
+        </a>
+      </div>
+    </section>
+  </section>
+</main>
+
 </body>
 </html>
