@@ -1,68 +1,280 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Lost & Found Portal</title>
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/forms.css">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Login - Lost & Found Portal</title>
+<style>
+  /* Reset & Base */
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
+  body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #4a90e2, #357ABD);
+    color: #222;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+  a {
+    color: #f0a500;
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+  a:hover,
+  a:focus {
+    color: #fff3bf;
+    outline: none;
+  }
+
+  /* Header */
+  header {
+    background-color: #1b2a49;
+    padding: 1rem 2rem;
+    box-shadow: 0 3px 10px rgb(0 0 0 / 0.3);
+  }
+  nav {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .nav-brand h1 {
+    margin: 0;
+    font-size: 1.6rem;
+    color: #f0a500;
+    user-select: none;
+  }
+  ul.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 1.5rem;
+    margin: 0;
+    padding: 0;
+  }
+  ul.nav-links li a {
+    color: #d0d6e3;
+    font-weight: 600;
+    padding: 0.3rem 0.6rem;
+    border-radius: 6px;
+  }
+  ul.nav-links li a.active,
+  ul.nav-links li a:hover,
+  ul.nav-links li a:focus {
+    background-color: #f0a500;
+    color: #1b2a49;
+    outline: none;
+  }
+
+  /* Main */
+  main {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 3rem 1rem;
+  }
+  .login-card {
+    background: #fff;
+    padding: 2.5rem 3rem;
+    border-radius: 16px;
+    box-shadow: 0 12px 30px rgb(0 0 0 / 0.12);
+    max-width: 400px;
+    width: 100%;
+    animation: fadeInUp 0.6s ease forwards;
+  }
+  .login-card h2 {
+    margin-bottom: 0.5rem;
+    font-weight: 700;
+    color: #1b2a49;
+    text-align: center;
+  }
+  .login-card p {
+    margin-bottom: 2rem;
+    color: #666;
+    text-align: center;
+    font-size: 1rem;
+  }
+
+  /* Form */
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.3rem;
+  }
+  label {
+    font-size: 0.9rem;
+    color: #444;
+    margin-bottom: 0.4rem;
+    display: block;
+  }
+  input[type="email"],
+  input[type="password"] {
+    padding: 0.85rem 1rem;
+    font-size: 1rem;
+    border: 1.8px solid #ccc;
+    border-radius: 10px;
+    transition: border-color 0.3s ease;
+    outline-offset: 2px;
+  }
+  input[type="email"]:focus,
+  input[type="password"]:focus {
+    border-color: #f0a500;
+    outline: none;
+  }
+
+  /* Checkbox */
+  .checkbox-group {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    user-select: none;
+  }
+  .checkbox-group input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+  }
+
+  /* Button */
+  button.btn {
+    background-color: #f0a500;
+    border: none;
+    color: #1b2a49;
+    padding: 0.95rem;
+    font-size: 1.1rem;
+    font-weight: 700;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.1s ease;
+  }
+  button.btn:hover,
+  button.btn:focus {
+    background-color: #cc8500;
+    outline: none;
+    transform: translateY(-2px);
+  }
+
+  /* Footer */
+  footer {
+    background-color: #1b2a49;
+    color: #d0d6e3;
+    text-align: center;
+    padding: 1rem;
+    font-size: 0.9rem;
+  }
+
+  /* Links below form */
+  .form-footer {
+    margin-top: 1.5rem;
+    font-size: 0.9rem;
+    text-align: center;
+    color: #666;
+  }
+  .form-footer p + p {
+    margin-top: 0.7rem;
+  }
+  .form-footer a {
+    color: #f0a500;
+  }
+  .form-footer a:hover,
+  .form-footer a:focus {
+    color: #cc8500;
+    outline: none;
+  }
+
+  /* Animations */
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Responsive */
+  @media (max-width: 480px) {
+    .login-card {
+      padding: 2rem 1.5rem;
+    }
+    nav {
+      padding: 1rem;
+    }
+    ul.nav-links {
+      gap: 1rem;
+    }
+  }
+</style>
 </head>
 <body>
-    <header class="header">
-        <nav class="navbar">
-            <div class="nav-brand">
-                <h1><a href="index.html">🔍 Lost & Found</a></h1>
-            </div>
-            <ul class="nav-links">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="login.html" class="active">Login</a></li>
-                <li><a href="register.html">Register</a></li>
-            </ul>
-        </nav>
-    </header>
 
-    <main class="main-content">
-        <div class="container">
-            <div class="form-container login-container">
-                <h2>Welcome Back</h2>
-                <p>Login to access your Lost & Found account</p>
-                
-                <!-- Login Form -->
-                <form class="login-form" action="/login" method="POST">
-                    <div class="form-group">
-                        <label for="loginEmail">Email Address</label>
-                        <input type="email" id="loginEmail" name="email" required 
-                               placeholder="Enter your email">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="loginPassword">Password</label>
-                        <input type="password" id="loginPassword" name="password" required 
-                               placeholder="Enter your password">
-                    </div>
-                    
-                    <div class="form-group checkbox-group">
-                        <input type="checkbox" id="remember" name="remember">
-                        <label for="remember">Remember me</label>
-                    </div>
-                    
-                    <div class="form-actions">
-                        <button type="submit" class="btn btn-primary btn-full">Login</button>
-                    </div>
-                </form>
-                
-                <div class="form-footer">
-                    <p><a href="#">Forgot your password?</a></p>
-                    <p>Don't have an account? <a href="register.html">Register here</a></p>
-                </div>
-            </div>
-        </div>
-    </main>
+<header>
+  <nav role="navigation" aria-label="Main Navigation">
+    <div class="nav-brand" aria-label="Lost and Found Portal Logo">
+      <h1>🔍 Lost & Found</h1>
+    </div>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="login.html" class="active" aria-current="page">Login</a></li>
+      <li><a href="register.html">Register</a></li>
+    </ul>
+  </nav>
+</header>
 
-    <footer class="footer">
-        <div class="container">
-            <p>&copy; 2024 School Lost & Found Portal</p>
-        </div>
-    </footer>
+<main>
+  <section class="login-card" aria-labelledby="loginTitle">
+    <h2 id="loginTitle">Welcome Back</h2>
+    <p>Login to access your Lost & Found account</p>
+
+    <form action="/login" method="POST" novalidate>
+      <label for="loginEmail">Email Address</label>
+      <input
+        type="email"
+        id="loginEmail"
+        name="email"
+        required
+        placeholder="you@example.com"
+        autocomplete="email"
+        aria-describedby="emailHelp"
+      />
+
+      <label for="loginPassword">Password</label>
+      <input
+        type="password"
+        id="loginPassword"
+        name="password"
+        required
+        placeholder="••••••••"
+        autocomplete="current-password"
+      />
+
+      <div class="checkbox-group">
+        <input type="checkbox" id="remember" name="remember" />
+        <label for="remember">Remember me</label>
+      </div>
+
+      <button type="submit" class="btn">Login</button>
+    </form>
+
+    <div class="form-footer" role="contentinfo">
+      <p><a href="#">Forgot your password?</a></p>
+      <p>
+        Don't have an account? <a href="register.html">Register here</a>
+      </p>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <p>&copy; 2025 School Lost & Found Portal</p>
+</footer>
+
 </body>
 </html>
