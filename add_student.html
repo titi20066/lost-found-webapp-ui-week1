@@ -1,185 +1,417 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add Student - Lost & Found Portal</title>
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/forms.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Add Student - Lost & Found Portal</title>
+  <link rel="stylesheet" href="">
+  <style>
+    /* Reset */
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f9fafb;
+      color: #222;
+      margin: 0;
+      line-height: 1.5;
+    }
+    a {
+      color: #1a73e8;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+
+    /* Header */
+    header {
+      background: #1a73e8;
+      color: white;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    header h1 a {
+      color: white;
+      font-weight: 700;
+      font-size: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    header .nav-user {
+      font-weight: 600;
+      font-size: 1rem;
+    }
+    header .btn {
+      margin-left: 1rem;
+      background: white;
+      color: #1a73e8;
+      padding: 0.4rem 1rem;
+      border-radius: 4px;
+      border: none;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.25s ease;
+    }
+    header .btn:hover {
+      background: #e3eefd;
+    }
+
+    /* Main container */
+    main {
+      max-width: 720px;
+      margin: 2rem auto 4rem;
+      background: white;
+      padding: 2rem 2.5rem;
+      border-radius: 8px;
+      box-shadow: 0 6px 15px rgb(0 0 0 / 0.1);
+    }
+    main h2 {
+      font-size: 1.8rem;
+      margin-bottom: 0.3rem;
+      color: #1a1a1a;
+    }
+    main p {
+      margin-bottom: 1.5rem;
+      color: #555;
+      font-size: 1rem;
+    }
+
+    /* Form styles */
+    form {
+      width: 100%;
+    }
+    fieldset {
+      border: 1px solid #d1d5db;
+      padding: 1.25rem 1.5rem 1.5rem;
+      margin-bottom: 1.8rem;
+      border-radius: 6px;
+    }
+    legend {
+      padding: 0 0.6rem;
+      font-weight: 700;
+      color: #2563eb;
+      font-size: 1.1rem;
+    }
+
+    .form-row {
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      margin-bottom: 1rem;
+    }
+    .form-group {
+      flex: 1 1 45%;
+      min-width: 220px;
+      display: flex;
+      flex-direction: column;
+    }
+    label {
+      font-weight: 600;
+      margin-bottom: 0.4rem;
+      color: #374151;
+      font-size: 0.95rem;
+    }
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    input[type="password"],
+    input[type="date"],
+    input[type="number"],
+    select {
+      padding: 0.5rem 0.75rem;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 6px;
+      font-size: 1rem;
+      transition: border-color 0.3s ease;
+    }
+    input:focus,
+    select:focus {
+      border-color: #2563eb;
+      outline: none;
+      box-shadow: 0 0 5px rgba(37, 99, 235, 0.5);
+    }
+
+    /* Checkbox groups */
+    .checkbox-group {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 0.8rem;
+    }
+    .checkbox-group input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      cursor: pointer;
+    }
+    .checkbox-group label {
+      font-weight: 600;
+      font-size: 0.95rem;
+      color: #374151;
+      cursor: pointer;
+    }
+
+    /* Form actions */
+    .form-actions {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-top: 1.2rem;
+      justify-content: flex-start;
+    }
+    .btn {
+      padding: 0.55rem 1.5rem;
+      font-weight: 700;
+      border-radius: 6px;
+      cursor: pointer;
+      border: none;
+      font-size: 1rem;
+      transition: background-color 0.25s ease;
+    }
+    .btn-primary {
+      background-color: #2563eb;
+      color: white;
+    }
+    .btn-primary:hover {
+      background-color: #1e40af;
+    }
+    .btn-secondary {
+      background-color: #e5e7eb;
+      color: #374151;
+    }
+    .btn-secondary:hover {
+      background-color: #d1d5db;
+    }
+    .btn-outline {
+      background: transparent;
+      color: #2563eb;
+      border: 2px solid #2563eb;
+    }
+    .btn-outline:hover {
+      background-color: #2563eb;
+      color: white;
+    }
+
+    /* Footer */
+    footer {
+      background: #f3f4f6;
+      text-align: center;
+      padding: 1rem 0;
+      font-size: 0.9rem;
+      color: #6b7280;
+      position: fixed;
+      width: 100%;
+      bottom: 0;
+    }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      .form-row {
+        flex-direction: column;
+      }
+      .form-group {
+        flex: 1 1 100%;
+      }
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+      }
+      header .nav-user {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+      }
+    }
+  </style>
 </head>
 <body>
-    <header class="header">
-        <nav class="navbar">
-            <div class="nav-brand">
-                <h1><a href="index.html">🔍 Lost & Found</a></h1>
-            </div>
-            <div class="nav-user">
-                <span>Admin Panel</span>
-                <a href="dashboard.html" class="btn btn-small">Back to Dashboard</a>
-            </div>
-        </nav>
-    </header>
 
-    <main class="main-content">
-        <div class="container">
-            <div class="form-container">
-                <h2>Add New Student</h2>
-                <p>Register a new student in the Lost & Found system</p>
-                
-                <!-- Add Student Form -->
-                <form class="add-student-form" action="/admin/add-student" method="POST">
-                    <!-- Basic Information -->
-                    <fieldset>
-                        <legend>Student Information</legend>
-                        
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="studentFirstName">First Name *</label>
-                                <input type="text" id="studentFirstName" name="firstName" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="studentLastName">Last Name *</label>
-                                <input type="text" id="studentLastName" name="lastName" required>
-                            </div>
-                        </div>
-                        
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="studentEmail">Email Address *</label>
-                                <input type="email" id="studentEmail" name="email" required 
-                                       placeholder="student@school.edu">
-                            </div>
-                            <div class="form-group">
-                                <label for="studentPhone">Phone Number</label>
-                                <input type="tel" id="studentPhone" name="phone" 
-                                       placeholder="(555) 123-4567">
-                            </div>
-                        </div>
-                        
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="newStudentId">Student ID *</label>
-                                <input type="text" id="newStudentId" name="studentId" required 
-                                       placeholder="STU123456" pattern="STU[0-9]{6}">
-                            </div>
-                            <div class="form-group">
-                                <label for="enrollmentDate">Enrollment Date *</label>
-                                <input type="date" id="enrollmentDate" name="enrollmentDate" required>
-                            </div>
-                        </div>
-                    </fieldset>
-                    
-                    <!-- Academic Details -->
-                    <fieldset>
-                        <legend>Academic Details</legend>
-                        
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="studentDepartment">Department *</label>
-                                <select id="studentDepartment" name="department" required>
-                                    <option value="">Select Department</option>
-                                    <option value="computer-science">Computer Science</option>
-                                    <option value="engineering">Engineering</option>
-                                    <option value="business">Business Administration</option>
-                                    <option value="arts">Arts & Humanities</option>
-                                    <option value="sciences">Natural Sciences</option>
-                                    <option value="medicine">Medicine</option>
-                                    <option value="law">Law</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="studentYear">Year Level *</label>
-                                <select id="studentYear" name="yearLevel" required>
-                                    <option value="">Select Year</option>
-                                    <option value="freshman">Freshman</option>
-                                    <option value="sophomore">Sophomore</option>
-                                    <option value="junior">Junior</option>
-                                    <option value="senior">Senior</option>
-                                    <option value="graduate">Graduate</option>
-                                </select>
-                            </div>
-                        </div>
-                        
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="advisor">Academic Advisor</label>
-                                <input type="text" id="advisor" name="advisor" 
-                                       placeholder="Dr. Smith">
-                            </div>
-                            <div class="form-group">
-                                <label for="gpa">Current GPA</label>
-                                <input type="number" id="gpa" name="gpa" 
-                                       min="0" max="4" step="0.01" placeholder="3.50">
-                            </div>
-                        </div>
-                    </fieldset>
-                    
-                    <!-- Account Settings -->
-                    <fieldset>
-                        <legend>Account Settings</legend>
-                        
-                        <div class="form-group">
-                            <label for="tempPassword">Temporary Password *</label>
-                            <input type="password" id="tempPassword" name="tempPassword" required 
-                                   minlength="8" placeholder="Student will change on first login">
-                        </div>
-                        
-                        <div class="form-group checkbox-group">
-                            <input type="checkbox" id="sendWelcome" name="sendWelcome" checked>
-                            <label for="sendWelcome">Send welcome email with login instructions</label>
-                        </div>
-                        
-                        <div class="form-group checkbox-group">
-                            <input type="checkbox" id="requirePasswordChange" name="requirePasswordChange" checked>
-                            <label for="requirePasswordChange">Require password change on first login</label>
-                        </div>
-                    </fieldset>
-                    
-                    <!-- Emergency Contact -->
-                    <fieldset>
-                        <legend>Emergency Contact (Optional)</legend>
-                        
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="emergencyName">Contact Name</label>
-                                <input type="text" id="emergencyName" name="emergencyName" 
-                                       placeholder="Parent/Guardian Name">
-                            </div>
-                            <div class="form-group">
-                                <label for="emergencyPhone">Contact Phone</label>
-                                <input type="tel" id="emergencyPhone" name="emergencyPhone" 
-                                       placeholder="(555) 123-4567">
-                            </div>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="relationship">Relationship</label>
-                            <select id="relationship" name="relationship">
-                                <option value="">Select Relationship</option>
-                                <option value="parent">Parent</option>
-                                <option value="guardian">Guardian</option>
-                                <option value="spouse">Spouse</option>
-                                <option value="sibling">Sibling</option>
-                                <option value="other">Other</option>
-                            </select>
-                        </div>
-                    </fieldset>
-                    
-                    <!-- Form Actions -->
-                    <div class="form-actions">
-                        <button type="submit" class="btn btn-primary">Add Student</button>
-                        <button type="reset" class="btn btn-secondary">Clear Form</button>
-                        <a href="dashboard.html" class="btn btn-outline">Cancel</a>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </main>
+  <header>
+    <nav class="navbar">
+      <h1><a href="index.html">🔍 Lost & Found</a></h1>
+      <div class="nav-user">
+        <span>Admin Panel</span>
+        <a href="dashboard.html" class="btn btn-small">Back to Dashboard</a>
+      </div>
+    </nav>
+  </header>
 
-    <footer class="footer">
-        <div class="container">
-            <p>&copy; 2024 School Lost & Found Portal - Admin Panel</p>
+  <main>
+    <h2>Add New Student</h2>
+    <p>Register a new student in the Lost & Found system</p>
+
+    <form action="/admin/add-student" method="POST" novalidate>
+      <!-- Student Information -->
+      <fieldset>
+        <legend>Student Information</legend>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="studentFirstName">First Name *</label>
+            <input type="text" id="studentFirstName" name="firstName" required />
+          </div>
+          <div class="form-group">
+            <label for="studentLastName">Last Name *</label>
+            <input type="text" id="studentLastName" name="lastName" required />
+          </div>
         </div>
-    </footer>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="studentEmail">Email Address *</label>
+            <input
+              type="email"
+              id="studentEmail"
+              name="email"
+              required
+              placeholder="student@school.edu"
+            />
+          </div>
+          <div class="form-group">
+            <label for="studentPhone">Phone Number</label>
+            <input type="tel" id="studentPhone" name="phone" placeholder="(555) 123-4567" />
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="newStudentId">Student ID *</label>
+            <input
+              type="text"
+              id="newStudentId"
+              name="studentId"
+              required
+              placeholder="STU123456"
+              pattern="STU[0-9]{6}"
+              title="Student ID must be in the format STU123456"
+            />
+          </div>
+          <div class="form-group">
+            <label for="enrollmentDate">Enrollment Date *</label>
+            <input type="date" id="enrollmentDate" name="enrollmentDate" required />
+          </div>
+        </div>
+      </fieldset>
+
+      <!-- Academic Details -->
+      <fieldset>
+        <legend>Academic Details</legend>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="studentDepartment">Department *</label>
+            <select id="studentDepartment" name="department" required>
+              <option value="">Select Department</option>
+              <option value="computer-science">Computer Science</option>
+              <option value="engineering">Engineering</option>
+              <option value="business">Business Administration</option>
+              <option value="arts">Arts & Humanities</option>
+              <option value="sciences">Natural Sciences</option>
+              <option value="medicine">Medicine</option>
+              <option value="law">Law</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="studentYear">Year Level *</label>
+            <select id="studentYear" name="yearLevel" required>
+              <option value="">Select Year</option>
+              <option value="freshman">Freshman</option>
+              <option value="sophomore">Sophomore</option>
+              <option value="junior">Junior</option>
+              <option value="senior">Senior</option>
+              <option value="graduate">Graduate</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="advisor">Academic Advisor</label>
+            <input type="text" id="advisor" name="advisor" placeholder="Dr. Smith" />
+          </div>
+          <div class="form-group">
+            <label for="gpa">Current GPA</label>
+            <input
+              type="number"
+              id="gpa"
+              name="gpa"
+              min="0"
+              max="4"
+              step="0.01"
+              placeholder="3.50"
+            />
+          </div>
+        </div>
+      </fieldset>
+
+      <!-- Account Settings -->
+      <fieldset>
+        <legend>Account Settings</legend>
+        <div class="form-group">
+          <label for="tempPassword">Temporary Password *</label>
+          <input
+            type="password"
+            id="tempPassword"
+            name="tempPassword"
+            required
+            minlength="8"
+            placeholder="Student will change on first login"
+          />
+        </div>
+
+        <div class="checkbox-group">
+          <input type="checkbox" id="sendWelcome" name="sendWelcome" checked />
+          <label for="sendWelcome">Send welcome email with login instructions</label>
+        </div>
+
+        <div class="checkbox-group">
+          <input type="checkbox" id="requirePasswordChange" name="requirePasswordChange" checked />
+          <label for="requirePasswordChange">Require password change on first login</label>
+        </div>
+      </fieldset>
+
+      <!-- Emergency Contact -->
+      <fieldset>
+        <legend>Emergency Contact (Optional)</legend>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="emergencyName">Contact Name</label>
+            <input type="text" id="emergencyName" name="emergencyName" placeholder="Parent/Guardian Name" />
+          </div>
+          <div class="form-group">
+            <label for="emergencyPhone">Contact Phone</label>
+            <input type="tel" id="emergencyPhone" name="emergencyPhone" placeholder="(555) 123-4567" />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="relationship">Relationship</label>
+          <select id="relationship" name="relationship">
+            <option value="">Select Relationship</option>
+            <option value="parent">Parent</option>
+            <option value="guardian">Guardian</option>
+            <option value="spouse">Spouse</option>
+            <option value="sibling">Sibling</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+      </fieldset>
+
+      <!-- Form Actions -->
+      <div class="form-actions">
+        <button type="submit" class="btn btn-primary">Add Student</button>
+        <button type="reset" class="btn btn-secondary">Clear Form</button>
+        <a href="dashboard.html" class="btn btn-outline" role="button">Cancel</a>
+      </div>
+    </form>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 School Lost & Found Portal - Admin Panel</p>
+  </footer>
+
 </body>
 </html>
