@@ -1,141 +1,357 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register - Lost & Found Portal</title>
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/forms.css">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Register - Lost & Found Portal</title>
+<style>
+  /* Reset */
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #f9fafb;
+    margin: 0;
+    color: #333;
+    line-height: 1.6;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+  a {
+    color: #0056b3;
+    text-decoration: none;
+  }
+  a:hover {
+    text-decoration: underline;
+  }
+  
+  /* Header */
+  header {
+    background: #002244;
+    padding: 1rem 2rem;
+    color: #fff;
+  }
+  header .nav-brand a {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #f0a500;
+  }
+  nav ul {
+    list-style: none;
+    display: flex;
+    gap: 1.5rem;
+    margin-top: 0.5rem;
+  }
+  nav li a {
+    color: #ddd;
+    font-weight: 600;
+    padding: 0.3rem 0.5rem;
+    border-radius: 4px;
+  }
+  nav li a.active,
+  nav li a:hover {
+    background: #f0a500;
+    color: #002244;
+  }
+  nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  /* Main container */
+  main {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    padding: 3rem 1rem;
+  }
+  .form-container {
+    background: white;
+    max-width: 480px;
+    width: 100%;
+    padding: 2.5rem 2rem;
+    border-radius: 8px;
+    box-shadow: 0 8px 20px rgb(0 0 0 / 0.1);
+    animation: fadeIn 0.8s ease forwards;
+  }
+  .form-container h2 {
+    margin-bottom: 0.2rem;
+    color: #002244;
+  }
+  .form-container p {
+    margin-bottom: 1.8rem;
+    color: #555;
+  }
+  
+  /* Form styles */
+  fieldset {
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    margin-bottom: 1.8rem;
+    padding: 1.5rem 1.6rem;
+  }
+  legend {
+    font-weight: 700;
+    color: #002244;
+    padding: 0 8px;
+  }
+  .form-row {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+  .form-group {
+    flex: 1 1 45%;
+    margin-bottom: 1rem;
+    display: flex;
+    flex-direction: column;
+  }
+  .form-group.full-width {
+    flex: 1 1 100%;
+  }
+  label {
+    font-weight: 600;
+    margin-bottom: 0.4rem;
+  }
+  input[type="text"],
+  input[type="email"],
+  input[type="password"],
+  input[type="tel"],
+  select {
+    padding: 0.5rem 0.75rem;
+    border: 1.5px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+    transition: border-color 0.2s ease;
+  }
+  input[type="text"]:focus,
+  input[type="email"]:focus,
+  input[type="password"]:focus,
+  input[type="tel"]:focus,
+  select:focus {
+    border-color: #f0a500;
+    outline: none;
+  }
+  
+  /* Checkbox */
+  .checkbox-group {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .checkbox-group input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+  }
+  .checkbox-group label {
+    font-weight: normal;
+    color: #444;
+  }
+  .checkbox-group a {
+    font-weight: 600;
+  }
+
+  /* Buttons */
+  .form-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: flex-end;
+  }
+  button {
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 1rem;
+    padding: 0.6rem 1.6rem;
+    border: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+  }
+  .btn-primary {
+    background-color: #f0a500;
+    color: #002244;
+  }
+  .btn-primary:hover {
+    background-color: #d18e00;
+  }
+  .btn-secondary {
+    background-color: #ccc;
+    color: #444;
+  }
+  .btn-secondary:hover {
+    background-color: #aaa;
+  }
+  
+  /* Footer */
+  footer {
+    background: #002244;
+    color: #fff;
+    text-align: center;
+    padding: 1rem 1rem;
+    font-size: 0.9rem;
+  }
+
+  /* Animations */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(15px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Responsive */
+  @media (max-width: 480px) {
+    .form-row {
+      flex-direction: column;
+    }
+    .form-group {
+      flex: 1 1 100%;
+    }
+  }
+</style>
 </head>
 <body>
-    <!-- Navigation (same as index.html) -->
-    <header class="header">
-        <nav class="navbar">
-            <div class="nav-brand">
-                <h1><a href="index.html">🔍 Lost & Found</a></h1>
-            </div>
-            <ul class="nav-links">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="login.html">Login</a></li>
-                <li><a href="register.html" class="active">Register</a></li>
-            </ul>
-        </nav>
-    </header>
 
-    <main class="main-content">
-        <div class="container">
-            <div class="form-container">
-                <h2>Create Your Account</h2>
-                <p>Join our Lost & Found community to report and find items.</p>
-                
-                <!-- Registration Form -->
-                <form class="registration-form" action="/register" method="POST">
-                    <!-- Personal Information -->
-                    <fieldset>
-                        <legend>Personal Information</legend>
-                        
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="firstName">First Name *</label>
-                                <input type="text" id="firstName" name="firstName" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="lastName">Last Name *</label>
-                                <input type="text" id="lastName" name="lastName" required>
-                            </div>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="email">Email Address *</label>
-                            <input type="email" id="email" name="email" required 
-                                   placeholder="student@school.edu">
-                        </div>
-                        
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="studentId">Student ID *</label>
-                                <input type="text" id="studentId" name="studentId" required 
-                                       placeholder="STU123456" pattern="STU[0-9]{6}">
-                            </div>
-                            <div class="form-group">
-                                <label for="phone">Phone Number</label>
-                                <input type="tel" id="phone" name="phone" 
-                                       placeholder="(555) 123-4567">
-                            </div>
-                        </div>
-                    </fieldset>
-                    
-                    <!-- Academic Information -->
-                    <fieldset>
-                        <legend>Academic Information</legend>
-                        
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="department">Department *</label>
-                                <select id="department" name="department" required>
-                                    <option value="">Select Department</option>
-                                    <option value="computer-science">Computer Science</option>
-                                    <option value="engineering">Engineering</option>
-                                    <option value="business">Business</option>
-                                    <option value="arts">Arts & Humanities</option>
-                                    <option value="sciences">Natural Sciences</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="yearLevel">Year Level *</label>
-                                <select id="yearLevel" name="yearLevel" required>
-                                    <option value="">Select Year</option>
-                                    <option value="freshman">Freshman</option>
-                                    <option value="sophomore">Sophomore</option>
-                                    <option value="junior">Junior</option>
-                                    <option value="senior">Senior</option>
-                                </select>
-                            </div>
-                        </div>
-                    </fieldset>
-                    
-                    <!-- Account Setup -->
-                    <fieldset>
-                        <legend>Account Setup</legend>
-                        
-                        <div class="form-group">
-                            <label for="password">Password *</label>
-                            <input type="password" id="password" name="password" required 
-                                   minlength="8" placeholder="Minimum 8 characters">
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="confirmPassword">Confirm Password *</label>
-                            <input type="password" id="confirmPassword" name="confirmPassword" required>
-                        </div>
-                        
-                        <div class="form-group checkbox-group">
-                            <input type="checkbox" id="terms" name="terms" required>
-                            <label for="terms">
-                                I agree to the <a href="#" target="_blank">Terms of Service</a> 
-                                and <a href="#" target="_blank">Privacy Policy</a> *
-                            </label>
-                        </div>
-                    </fieldset>
-                    
-                    <!-- Form Actions -->
-                    <div class="form-actions">
-                        <button type="submit" class="btn btn-primary">Create Account</button>
-                        <button type="reset" class="btn btn-secondary">Clear Form</button>
-                    </div>
-                </form>
-                
-                <div class="form-footer">
-                    <p>Already have an account? <a href="login.html">Login here</a></p>
-                </div>
-            </div>
-        </div>
-    </main>
+<header>
+  <nav>
+    <div class="nav-brand"><a href="index.html">🔍 Lost & Found</a></div>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="login.html">Login</a></li>
+      <li><a href="register.html" class="active">Register</a></li>
+    </ul>
+  </nav>
+</header>
 
-    <footer class="footer">
-        <div class="container">
-            <p>&copy; 2024 School Lost & Found Portal</p>
+<main>
+  <section class="form-container" aria-label="Register Form">
+    <h2>Create Your Account</h2>
+    <p>Join our Lost & Found community to report and find items.</p>
+    <form action="/register" method="POST" class="registration-form" novalidate>
+      
+      <fieldset>
+        <legend>Personal Information</legend>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="firstName">First Name *</label>
+            <input type="text" id="firstName" name="firstName" required autocomplete="given-name" />
+          </div>
+          <div class="form-group">
+            <label for="lastName">Last Name *</label>
+            <input type="text" id="lastName" name="lastName" required autocomplete="family-name" />
+          </div>
         </div>
-    </footer>
+
+        <div class="form-group full-width">
+          <label for="email">Email Address *</label>
+          <input type="email" id="email" name="email" placeholder="student@school.edu" required autocomplete="email" />
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="phone">Phone Number</label>
+            <input type="tel" id="phone" name="phone" placeholder="(555) 123-4567" autocomplete="tel" />
+          </div>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Academic Information</legend>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="department">Department *</label>
+            <select id="department" name="department" required>
+              <option value="">Select Department</option>
+              <option value="computer-science">Computer Science</option>
+              <option value="engineering">Engineering</option>
+              <option value="business">Business</option>
+              <option value="arts">Arts & Humanities</option>
+              <option value="sciences">Natural Sciences</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="yearLevel">Year Level *</label>
+            <select id="yearLevel" name="yearLevel" required>
+              <option value="">Select Year</option>
+              <option value="freshman">Freshman</option>
+              <option value="sophomore">Sophomore</option>
+              <option value="junior">Junior</option>
+              <option value="senior">Senior</option>
+            </select>
+          </div>
+        </div>
+      </fieldset>
+
+      <!-- Department of Teachers -->
+      <fieldset>
+        <legend>Department of Teachers</legend>
+        <div class="form-group full-width">
+          <label for="teacherDepartment">Select Your Teacher Department *</label>
+          <select id="teacherDepartment" name="teacherDepartment" required>
+            <option value="">Select Department</option>
+            <option value="science">Science</option>
+            <option value="math">Math</option>
+            <option value="language-arts">Language Arts</option>
+            <option value="social-studies">Social Studies</option>
+            <option value="physical-education">Physical Education</option>
+          </select>
+        </div>
+      </fieldset>
+
+      <!-- Discipline Department -->
+      <fieldset>
+        <legend>Discipline Department</legend>
+        <div class="form-group full-width">
+          <label for="disciplineRole">Select Your Discipline Role *</label>
+          <select id="disciplineRole" name="disciplineRole" required>
+            <option value="">Select Role</option>
+            <option value="discipline-master">Discipline Master</option>
+            <option value="discipline-assistant">Discipline Assistant</option>
+            <option value="counselor">Counselor</option>
+          </select>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Account Setup</legend>
+        <div class="form-group full-width">
+          <label for="password">Password *</label>
+          <input type="password" id="password" name="password" placeholder="Minimum 8 characters" minlength="8" required autocomplete="new-password" />
+        </div>
+        <div class="form-group full-width">
+          <label for="confirmPassword">Confirm Password *</label>
+          <input type="password" id="confirmPassword" name="confirmPassword" required autocomplete="new-password" />
+        </div>
+        <div class="form-group checkbox-group full-width">
+          <input type="checkbox" id="terms" name="terms" required />
+          <label for="terms">
+            I agree to the <a href="#" target="_blank" rel="noopener noreferrer">Terms of Service</a> and <a href="#" target="_blank" rel="noopener noreferrer">Privacy Policy</a> *
+          </label>
+        </div>
+      </fieldset>
+
+      <div class="form-actions">
+        <button type="submit" class="btn-primary">Create Account</button>
+        <button type="reset" class="btn-secondary">Clear Form</button>
+      </div>
+    </form>
+
+    <p style="margin-top: 1.5rem; text-align: center;">
+      Already have an account? <a href="login.html">Login here</a>
+    </p>
+  </section>
+</main>
+
+<footer>
+  <p>&copy; 2025 School Lost & Found Portal</p>
+</footer>
+
 </body>
 </html>
